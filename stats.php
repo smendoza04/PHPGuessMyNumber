@@ -7,12 +7,13 @@
     </head>
     <body>
         <div>
-            <h1>Congrats</h1>
+            <h1>Congratulations</h1>
             <?php
             include "game.php";
             $game = unserialize($_SESSION["game"]);
-            echo "<p> Tries: " . $game->getTries() . "</p>";
-            
+            echo "<p> Your number is <b>" . $game->getRandom() . "</b></p>";
+            echo "<p> I guessed it in <b>" . $game->getTries() . "</b> tries</p>";
+
             if(isset($_POST["submit"])) {
                 header("Location: index.php");
             }

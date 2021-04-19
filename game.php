@@ -36,6 +36,12 @@ abstract class Game {
     function setAnswer ($answer) {
         $this->answer = $answer;
     }
+    function setMin($min) {
+        $this->min = $min;
+    }
+    function setMax($max) {
+        $this->max = $max;
+    }
     
     // Getters
     function getMode() {
@@ -56,6 +62,7 @@ abstract class Game {
     function getMax() {
         return $this->max;
     }
+    
     
     
 }
@@ -91,29 +98,27 @@ class User extends Game {
 class Bot extends Game {
     
     private $guessNumber;
+    private $random;
     public function __construct($mode, $difficulty){
         parent::__construct($mode, $difficulty);
-        $this->randomizer();
+        $this->tries = 1;
+        $this->random = $this->max/2;
     }
     
     public function randomizer() {
-        $this->guessNumber = rand($this->min, $this->max);
+        $this->random = rand($this->min, $this->max);
     }
     
-    public function gameBot () {
-        
-        while ($this->guessNumber != $this->getAnswer()) {
-            $this->incrementTries();
-            if ($this->guessNumber < $this->getAnswer()){ 
-                $this->guessNumber++;
-            } elseif($this->guessNumber > $this->getAnswer()){       
-                $this->guessNumber--;
-            } elseif($this->guessNumber == $this->getAnswer()){      
-                echo "Congrats";
-            }
-            
+    public function getRandom() {
+        return $this->random;
+    }
+    
+    public function checkValues() {
+        if ($this->min == $this->max || $this->min > $this->max) {
+            return true;
+        } else {
+            return false;
         }
+        
     }
-
-    
 }
